@@ -9,6 +9,8 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 
 interface FilterBarProps {
+  country: string;
+  onCountryChange: (v: string) => void;
   sort: "gmv" | "viral";
   onSortChange: (v: "gmv" | "viral") => void;
   category: string;
@@ -23,6 +25,17 @@ interface FilterBarProps {
 export function FilterBar(props: FilterBarProps) {
   return (
     <div className="flex flex-wrap items-center gap-3 mb-6">
+      {/* Country selector */}
+      <Select value={props.country} onValueChange={props.onCountryChange}>
+        <SelectTrigger className="w-[120px] h-8 text-xs font-medium border-primary/30">
+          <SelectValue />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="US">🇺🇸 USA</SelectItem>
+          <SelectItem value="BR">🇧🇷 Brazil</SelectItem>
+        </SelectContent>
+      </Select>
+
       {/* Sort toggle */}
       <div className="inline-flex rounded-lg border border-border overflow-hidden">
         <button

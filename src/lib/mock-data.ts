@@ -1,6 +1,6 @@
 import type { Video, KPIs, Trends } from "./types";
 
-const mockVideos: Video[] = [
+const mockVideosUS: Video[] = [
   {
     id: "v1", tiktok_id: "tt001", rank: 1,
     title: "POV: you found the dress that actually flatters your body type",
@@ -253,6 +253,208 @@ const mockVideos: Video[] = [
   },
 ];
 
+const mockVideosBR: Video[] = [
+  {
+    id: "br1", tiktok_id: "ttbr001", rank: 1,
+    title: "O vestido de R$89 que está viralizando no TikTok Brasil",
+    creator: "@modacomjulia", thumbnail_url: "https://picsum.photos/seed/br1/300/200",
+    video_url: "https://www.tiktok.com/@modacomjulia/video/br1", product_name: "Vestido Midi Canelado",
+    category: "Dresses", price_usd: 17.80, gmv_estimated: 52300, views: 5100000, likes: 420000, saves: 95000,
+    viral_score: 97, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O vestido de R$89 que está viralizando no TikTok Brasil",
+    problem: "Vestidos midi sempre ficam sem graça em corpos baixos",
+    solution: "Tecido canelado com recorte princesa que marca a cintura",
+    cta: "Link na bio — corre que está acabando",
+    style_tags: ["transformation", "urgency", "price_mention", "viral"],
+  },
+  {
+    id: "br2", tiktok_id: "ttbr002", rank: 2,
+    title: "Essa blusinha de R$39 parece de marca cara",
+    creator: "@estilodaana", thumbnail_url: "https://picsum.photos/seed/br2/300/200",
+    video_url: "https://www.tiktok.com/@estilodaana/video/br2", product_name: "Cropped Drapeado Cetim",
+    category: "Tops", price_usd: 7.80, gmv_estimated: 41200, views: 3800000, likes: 298000, saves: 71000,
+    viral_score: 93, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "Essa blusinha de R$39 parece que custou R$200",
+    problem: "Blusas de cetim baratas parecem pijama",
+    solution: "Drapeado frontal com forro embutido que dá caimento de grife",
+    cta: "TikTok Shop — frete grátis acima de R$99",
+    style_tags: ["budget_luxury", "social_proof", "price_mention"],
+  },
+  {
+    id: "br3", tiktok_id: "ttbr003", rank: 3,
+    title: "A calça wide leg que todo mundo está usando no Brasil",
+    creator: "@lookdodia.br", thumbnail_url: "https://picsum.photos/seed/br3/300/200",
+    video_url: "https://www.tiktok.com/@lookdodia.br/video/br3", product_name: "Calça Wide Leg Alfaiataria",
+    category: "Bottoms", price_usd: 12.00, gmv_estimated: 35800, views: 2900000, likes: 215000, saves: 58000,
+    viral_score: 89, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "A calça que faz qualquer look parecer caro",
+    problem: "Calça pantalona amassa fácil e fica larga demais",
+    solution: "Alfaiataria com cós estruturado e tecido anti-amassamento",
+    cta: "Compra pelo carrinho laranja — todos os tamanhos",
+    style_tags: ["social_proof", "versatility", "compliment_bait"],
+  },
+  {
+    id: "br4", tiktok_id: "ttbr004", rank: 4,
+    title: "Testei a sandália rasteirinha mais vendida do TikTok",
+    creator: "@sapatosdalu", thumbnail_url: "https://picsum.photos/seed/br4/300/200",
+    video_url: "https://www.tiktok.com/@sapatosdalu/video/br4", product_name: "Rasteirinha Tiras Trançadas",
+    category: "Footwear", price_usd: 9.60, gmv_estimated: 28400, views: 2200000, likes: 178000, saves: 62000,
+    viral_score: 86, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "A rasteirinha de R$48 que tem 20 mil avaliações 5 estrelas",
+    problem: "Rasteirinha barata machuca e descola rápido",
+    solution: "Palmilha anatômica com tiras de couro sintético trançado",
+    cta: "Link abaixo — 8 cores disponíveis",
+    style_tags: ["review", "social_proof", "comfort"],
+  },
+  {
+    id: "br5", tiktok_id: "ttbr005", rank: 5,
+    title: "Usei esse conjuntinho na balada e choveu elogio",
+    creator: "@glamourbr", thumbnail_url: "https://picsum.photos/seed/br5/300/200",
+    video_url: "https://www.tiktok.com/@glamourbr/video/br5", product_name: "Conjunto Cropped + Saia Brilho",
+    category: "Dresses", price_usd: 22.00, gmv_estimated: 24600, views: 1800000, likes: 145000, saves: 41000,
+    viral_score: 83, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O conjunto que me fez receber mais elogio que a aniversariante",
+    problem: "Looks de festa ou são caros ou parecem fantasia",
+    solution: "Conjunto cropped + saia com brilho discreto e tecido que não marca",
+    cta: "Link fixado nos comentários — P ao GG",
+    style_tags: ["compliment_bait", "occasion_wear", "size_inclusive"],
+  },
+  {
+    id: "br6", tiktok_id: "ttbr006", rank: 6,
+    title: "O cinto que transforma qualquer look básico",
+    creator: "@acessoriosdamari", thumbnail_url: "https://picsum.photos/seed/br6/300/200",
+    video_url: "https://www.tiktok.com/@acessoriosdamari/video/br6", product_name: "Cinto Corrente Dourado Duplo",
+    category: "Accessories", price_usd: 5.60, gmv_estimated: 19200, views: 1500000, likes: 112000, saves: 48000,
+    viral_score: 78, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O acessório de R$28 que faz qualquer look parecer de influencer",
+    problem: "Looks básicos ficam sem graça sem acessório certo",
+    solution: "Cinto corrente duplo que pode ser usado de 3 formas diferentes",
+    cta: "Shop TikTok — frete grátis",
+    style_tags: ["transformation", "price_mention", "versatility"],
+  },
+  {
+    id: "br7", tiktok_id: "ttbr007", rank: 7,
+    title: "O blazer cropped que virou uniforme do escritório",
+    creator: "@officeloooks", thumbnail_url: "https://picsum.photos/seed/br7/300/200",
+    video_url: "https://www.tiktok.com/@officeloooks/video/br7", product_name: "Blazer Cropped Estruturado",
+    category: "Outerwear", price_usd: 15.00, gmv_estimated: 15800, views: 1200000, likes: 89000, saves: 37000,
+    viral_score: 74, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O blazer que transformou meu look de trabalho de sem graça pra CEO",
+    problem: "Blazers são ou muito formais ou muito casuais",
+    solution: "Corte cropped com ombreira discreta — elegante sem esforço",
+    cta: "Disponível do PP ao GG — link abaixo",
+    style_tags: ["workwear", "transformation", "size_inclusive"],
+  },
+  {
+    id: "br8", tiktok_id: "ttbr008", rank: 8,
+    title: "O biquíni brasileiro que está bombando no TikTok",
+    creator: "@praiadamalu", thumbnail_url: "https://picsum.photos/seed/br8/300/200",
+    video_url: "https://www.tiktok.com/@praiadamalu/video/br8", product_name: "Biquíni Cortininha com Bojo",
+    category: "Swimwear", price_usd: 8.00, gmv_estimated: 13500, views: 1100000, likes: 82000, saves: 35000,
+    viral_score: 71, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O biquíni que me deu confiança pela primeira vez na praia",
+    problem: "Biquíni cortininha não sustenta e escorrega",
+    solution: "Cortininha com bojo removível e regulagem nas alças",
+    cta: "Aproveita — verão chegando e já está esgotando",
+    style_tags: ["body_positive", "urgency", "seasonal"],
+  },
+  {
+    id: "br9", tiktok_id: "ttbr009", rank: 9,
+    title: "Calça cargo que é tendência e cabe no bolso",
+    creator: "@streetbrasil", thumbnail_url: "https://picsum.photos/seed/br9/300/200",
+    video_url: "https://www.tiktok.com/@streetbrasil/video/br9", product_name: "Calça Cargo Jogger Feminina",
+    category: "Bottoms", price_usd: 10.00, gmv_estimated: 11200, views: 890000, likes: 68000, saves: 29000,
+    viral_score: 68, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "A cargo de R$50 que compete com marcas de R$300",
+    problem: "Calça cargo feminina costuma ser muito larga e masculina",
+    solution: "Modelagem jogger com bolsos funcionais e cintura alta",
+    cta: "Vem de carrinho laranja — 5 cores",
+    style_tags: ["trend_test", "budget_luxury", "social_proof"],
+  },
+  {
+    id: "br10", tiktok_id: "ttbr010", rank: 10,
+    title: "Tênis plataforma estilo anos 90 voltou com tudo",
+    creator: "@retrobrasileiro", thumbnail_url: "https://picsum.photos/seed/br10/300/200",
+    video_url: "https://www.tiktok.com/@retrobrasileiro/video/br10", product_name: "Tênis Plataforma Chunky",
+    category: "Footwear", price_usd: 14.00, gmv_estimated: 9600, views: 720000, likes: 55000, saves: 24000,
+    viral_score: 65, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "Se você cresceu nos anos 90, PRECISA desse tênis",
+    problem: "Plataforma é bonita mas destrói o pé no fim do dia",
+    solution: "Palmilha memory foam com plataforma leve em EVA",
+    cta: "Exclusivo TikTok Shop — não vende em loja",
+    style_tags: ["nostalgia", "exclusive", "comfort"],
+  },
+  {
+    id: "br11", tiktok_id: "ttbr011", rank: 11,
+    title: "Camiseta oversized que parece de grife",
+    creator: "@basicochique", thumbnail_url: "https://picsum.photos/seed/br11/300/200",
+    video_url: "https://www.tiktok.com/@basicochique/video/br11", product_name: "Camiseta Oversized Algodão Pima",
+    category: "Tops", price_usd: 6.00, gmv_estimated: 7800, views: 610000, likes: 47000, saves: 20000,
+    viral_score: 62, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "Como uma camiseta de R$30 pode parecer de R$200",
+    problem: "Camiseta básica perde forma depois de lavar",
+    solution: "Algodão pima com ombro caído e gramatura pesada",
+    cta: "Pede um número maior pro caimento oversized",
+    style_tags: ["styling_tips", "budget_luxury", "transformation"],
+  },
+  {
+    id: "br12", tiktok_id: "ttbr012", rank: 12,
+    title: "Bolsa mini transversal que cabe tudo que preciso",
+    creator: "@bolsasemais", thumbnail_url: "https://picsum.photos/seed/br12/300/200",
+    video_url: "https://www.tiktok.com/@bolsasemais/video/br12", product_name: "Bolsa Mini Matelassê",
+    category: "Accessories", price_usd: 7.00, gmv_estimated: 6200, views: 480000, likes: 38000, saves: 17000,
+    viral_score: 57, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "Mini bolsa vs bolsa grande — qual leva mais?",
+    problem: "Bolsa pequena nunca cabe nada de verdade",
+    solution: "Matelassê com compartimento interno expandível",
+    cta: "As duas estão no link — qual é seu time?",
+    style_tags: ["comparison", "engagement_bait", "practical"],
+  },
+  {
+    id: "br13", tiktok_id: "ttbr013", rank: 13,
+    title: "Jaqueta corta-vento perfeita para meia-estação",
+    creator: "@looksdeinverno", thumbnail_url: "https://picsum.photos/seed/br13/300/200",
+    video_url: "https://www.tiktok.com/@looksdeinverno/video/br13", product_name: "Jaqueta Corta-Vento Oversized",
+    category: "Outerwear", price_usd: 18.00, gmv_estimated: 5100, views: 390000, likes: 30000, saves: 13000,
+    viral_score: 53, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "A jaqueta que salva qualquer look de meia-estação",
+    problem: "Jaquetas leves não protegem do vento",
+    solution: "Corta-vento oversized com capuz e bolsos funcionais",
+    cta: "Peça essencial — link no perfil",
+    style_tags: ["seasonal", "practical", "versatility"],
+  },
+  {
+    id: "br14", tiktok_id: "ttbr014", rank: 14,
+    title: "Óculos gatinho que dá cara de rica",
+    creator: "@acessoriostrend", thumbnail_url: "https://picsum.photos/seed/br14/300/200",
+    video_url: "https://www.tiktok.com/@acessoriostrend/video/br14", product_name: "Óculos Cat-Eye Retrô",
+    category: "Accessories", price_usd: 5.00, gmv_estimated: 4200, views: 320000, likes: 25000, saves: 11000,
+    viral_score: 50, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O óculos de R$25 que parece de marca de luxo",
+    problem: "Óculos baratos parecem e são de qualidade ruim",
+    solution: "Lente polarizada UV400 com armação em acetato — dupe perfeito",
+    cta: "Menos de R$25 — link na bio",
+    style_tags: ["dupe", "price_mention", "review"],
+  },
+  {
+    id: "br15", tiktok_id: "ttbr015", rank: 15,
+    title: "Vestido envelope hack: nunca mais abre sozinho",
+    creator: "@dicasdemoda", thumbnail_url: "https://picsum.photos/seed/br15/300/200",
+    video_url: "https://www.tiktok.com/@dicasdemoda/video/br15", product_name: "Vestido Envelope Jersey",
+    category: "Dresses", price_usd: 10.00, gmv_estimated: 3400, views: 260000, likes: 20000, saves: 9000,
+    viral_score: 46, fetched_at: "2026-03-28T06:00:00Z",
+    hook: "O truque do vestido envelope que ninguém conta",
+    problem: "Vestido envelope abre e fica inseguro de usar",
+    solution: "Colchete interno que mantém o caimento perfeito o dia todo",
+    cta: "Problema resolvido — link abaixo",
+    style_tags: ["hack", "solution", "practical"],
+  },
+];
+
+function getVideosByCountry(country: string): Video[] {
+  return country === "BR" ? mockVideosBR : mockVideosUS;
+}
+
 export function getMockVideos(params: {
   sort: "gmv" | "viral";
   category?: string;
@@ -260,8 +462,9 @@ export function getMockVideos(params: {
   price?: string;
   page?: number;
   limit?: number;
+  country?: string;
 }) {
-  let filtered = [...mockVideos];
+  let filtered = [...getVideosByCountry(params.country || "US")];
 
   if (params.category && params.category !== "all") {
     filtered = filtered.filter((v) => v.category === params.category);
@@ -294,10 +497,22 @@ export function getMockVideos(params: {
 }
 
 export function getMockVideo(id: string): Video | undefined {
-  return mockVideos.find((v) => v.id === id);
+  return mockVideosUS.find((v) => v.id === id) || mockVideosBR.find((v) => v.id === id);
 }
 
-export function getMockKPIs(): KPIs {
+export function getMockKPIs(country?: string): KPIs {
+  if (country === "BR") {
+    return {
+      videos_analyzed_today: 203,
+      videos_trend_pct: 18.5,
+      top10_gmv_total: 261600,
+      top10_gmv_trend_pct: 14.2,
+      top_category: "Dresses",
+      top_category_gmv: 80300,
+      best_product_name: "Vestido Midi Canelado",
+      best_product_gmv: 52300,
+    };
+  }
   return {
     videos_analyzed_today: 147,
     videos_trend_pct: 12.3,

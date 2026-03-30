@@ -25,6 +25,7 @@ function downloadCSV(videos: Video[]) {
 }
 
 export default function Dashboard() {
+  const [country, setCountry] = useState("US");
   const [sort, setSort] = useState<"gmv" | "viral">("gmv");
   const [category, setCategory] = useState("all");
   const [period, setPeriod] = useState("7d");
@@ -32,7 +33,7 @@ export default function Dashboard() {
   const [page, setPage] = useState(1);
 
   const { data, isLoading } = useQuery({
-    queryKey: ["videos", sort, category, period, price, page],
+    queryKey: ["videos", country, sort, category, period, price, page],
     queryFn: () =>
       fetchVideos({
         sort,
@@ -41,6 +42,7 @@ export default function Dashboard() {
         price: price === "all" ? undefined : price,
         page,
         limit: 10,
+        country,
       }),
     staleTime: 5 * 60 * 1000,
   });
@@ -50,9 +52,11 @@ export default function Dashboard() {
       <div className="p-6 max-w-[1400px] mx-auto">
         <h1 className="text-xl font-bold text-foreground-strong mb-6">Video Ranking</h1>
 
-        <KPIBar period={period} />
+        <KPIBar period={period} country={country} />
 
         <FilterBar
+          country={country}
+          onCountryChange={(v) => { setCountry(v); setPage(1); }}
           sort={sort}
           onSortChange={(v) => { setSort(v); setPage(1); }}
           category={category}
