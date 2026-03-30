@@ -17,6 +17,7 @@ export async function fetchVideos(params: {
   price?: string;
   page?: number;
   limit?: number;
+  country?: string;
 }): Promise<VideosResponse> {
   if (USE_MOCK) {
     await new Promise((r) => setTimeout(r, 600));
@@ -29,6 +30,7 @@ export async function fetchVideos(params: {
     page: String(params.page || 1),
     limit: String(params.limit || 10),
     ...(params.price ? { price: params.price } : {}),
+    ...(params.country ? { country: params.country } : {}),
   });
   return fetchJSON(`${BASE}/api/videos?${qs}`);
 }
