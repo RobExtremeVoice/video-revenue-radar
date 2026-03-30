@@ -1,6 +1,6 @@
 import type { Video, KPIs, Trends } from "./types";
 
-const mockVideos: Video[] = [
+const mockVideosUS: Video[] = [
   {
     id: "v1", tiktok_id: "tt001", rank: 1,
     title: "POV: you found the dress that actually flatters your body type",
