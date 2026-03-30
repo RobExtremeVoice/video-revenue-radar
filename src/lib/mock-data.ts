@@ -497,7 +497,7 @@ export function getMockVideos(params: {
 }
 
 export function getMockVideo(id: string): Video | undefined {
-  return mockVideos.find((v) => v.id === id);
+  return mockVideosUS.find((v) => v.id === id) || mockVideosBR.find((v) => v.id === id);
 }
 
 export function getMockKPIs(): KPIs {
