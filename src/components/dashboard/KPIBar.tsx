@@ -15,10 +15,10 @@ function TrendIndicator({ value }: { value: number }) {
   );
 }
 
-export function KPIBar({ period }: { period: string }) {
+export function KPIBar({ period, country }: { period: string; country: string }) {
   const { data, isLoading } = useQuery({
-    queryKey: ["kpis", period],
-    queryFn: () => fetchKPIs(period),
+    queryKey: ["kpis", period, country],
+    queryFn: () => fetchKPIs(period, country),
     staleTime: 5 * 60 * 1000,
   });
 
