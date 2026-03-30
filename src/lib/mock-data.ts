@@ -500,7 +500,19 @@ export function getMockVideo(id: string): Video | undefined {
   return mockVideosUS.find((v) => v.id === id) || mockVideosBR.find((v) => v.id === id);
 }
 
-export function getMockKPIs(): KPIs {
+export function getMockKPIs(country?: string): KPIs {
+  if (country === "BR") {
+    return {
+      videos_analyzed_today: 203,
+      videos_trend_pct: 18.5,
+      top10_gmv_total: 261600,
+      top10_gmv_trend_pct: 14.2,
+      top_category: "Dresses",
+      top_category_gmv: 80300,
+      best_product_name: "Vestido Midi Canelado",
+      best_product_gmv: 52300,
+    };
+  }
   return {
     videos_analyzed_today: 147,
     videos_trend_pct: 12.3,
