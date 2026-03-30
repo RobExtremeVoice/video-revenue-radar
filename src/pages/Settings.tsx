@@ -41,6 +41,7 @@ export default function Settings() {
     { id: "kalodata", label: "Kalodata API Key", subtitle: "Alternative data source (optional)" },
     { id: "openai", label: "OpenAI API Key", subtitle: "Whisper transcription" },
     { id: "anthropic", label: "Anthropic API Key", subtitle: "Claude analysis" },
+    { id: "alibaba", label: "Alibaba Cloud API Key", subtitle: "Qwen3.5 or other Alibaba Cloud LLM" },
   ];
 
   return (
