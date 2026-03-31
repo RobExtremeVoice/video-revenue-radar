@@ -22,3 +22,23 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Terraform
+infrastructure/terraform/.terraform/
+infrastructure/terraform/.terraform.lock.hcl
+infrastructure/terraform/terraform.tfvars
+infrastructure/terraform/tfplan
+infrastructure/terraform/*.tfstate
+infrastructure/terraform/*.tfstate.backup
+
+# Lambda build artifacts
+lambdas/layer/python/
+lambdas/layer/lambda_layer.zip
+lambdas/dist/
+lambdas/**/*.zip
+
+# Python
+__pycache__/
+*.pyc
+.env
+.env.local
