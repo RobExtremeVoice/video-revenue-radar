@@ -33,3 +33,10 @@ variable "anthropic_api_key" {
   type        = string
   sensitive   = true
 }
+
+variable "alibaba_api_key" {
+  description = "Alibaba Cloud API key (Qwen via DashScope)"
+  type        = string
+  sensitive   = true
+  default     = ""
+}

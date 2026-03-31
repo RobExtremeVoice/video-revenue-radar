@@ -1,5 +1,10 @@
 """
-analyze — sends transcript to Claude and extracts structured insights.
+analyze — sends transcript to an LLM and extracts structured insights.
+
+LLM selection (via ALIBABA_API_KEY env var):
+  - If ALIBABA_API_KEY is set → uses Alibaba Cloud Qwen (DashScope API)
+  - Otherwise → uses Anthropic Claude (default)
+
 Triggered by SQS queue after transcription is complete.
 """
 import json
@@ -7,11 +12,19 @@ import os
 import logging
 import psycopg2
 import anthropic
+import requests
 
 logger = logging.getLogger()
 logger.setLevel(logging.INFO)
 
-claude_client = anthropic.Anthropic(api_key=os.environ["ANTHROPIC_API_KEY"])
+ANTHROPIC_API_KEY = os.environ.get("ANTHROPIC_API_KEY", "")
+ALIBABA_API_KEY   = os.environ.get("ALIBABA_API_KEY", "")
+
+# Use Qwen if Alibaba key is configured, else Claude
+USE_QWEN = bool(ALIBABA_API_KEY)
+
+QWEN_BASE_URL = "https://dashscope.aliyuncs.com/compatible-mode/v1"
+QWEN_MODEL    = "qwen-plus"   # qwen-plus = Qwen3.5, cost-effective for structured output
 
 DB_HOST     = os.environ["DB_HOST"]
 DB_NAME     = os.environ["DB_NAME"]
@@ -43,8 +56,9 @@ Transcript:
 {transcript}"""
 
 
-def analyze_transcript(transcript: str) -> dict:
-    message = claude_client.messages.create(
+def analyze_with_claude(transcript: str) -> dict:
+    client = anthropic.Anthropic(api_key=ANTHROPIC_API_KEY)
+    message = client.messages.create(
         model="claude-sonnet-4-6",
         max_tokens=1024,
         system=SYSTEM_PROMPT,
@@ -52,8 +66,45 @@ def analyze_transcript(transcript: str) -> dict:
             {"role": "user", "content": ANALYSIS_PROMPT.format(transcript=transcript[:4000])}
         ],
     )
-    raw = message.content[0].text.strip()
+    return json.loads(message.content[0].text.strip())
+
+
+def analyze_with_qwen(transcript: str) -> dict:
+    """
+    Calls Alibaba Cloud Qwen via DashScope OpenAI-compatible endpoint.
+    Model: qwen-plus (Qwen3.5)
+    Docs: https://www.alibabacloud.com/help/en/dashscope/
+    """
+    headers = {
+        "Authorization": f"Bearer {ALIBABA_API_KEY}",
+        "Content-Type": "application/json",
+    }
+    payload = {
+        "model": QWEN_MODEL,
+        "messages": [
+            {"role": "system", "content": SYSTEM_PROMPT},
+            {"role": "user",   "content": ANALYSIS_PROMPT.format(transcript=transcript[:4000])},
+        ],
+        "max_tokens": 1024,
+        "temperature": 0.2,
+    }
+    resp = requests.post(
+        f"{QWEN_BASE_URL}/chat/completions",
+        headers=headers,
+        json=payload,
+        timeout=60,
+    )
+    resp.raise_for_status()
+    raw = resp.json()["choices"][0]["message"]["content"].strip()
     return json.loads(raw)
+
+
+def analyze_transcript(transcript: str) -> dict:
+    if USE_QWEN:
+        logger.info("Using Qwen (Alibaba Cloud) for analysis")
+        return analyze_with_qwen(transcript)
+    logger.info("Using Claude (Anthropic) for analysis")
+    return analyze_with_claude(transcript)
 
 
 def get_db():
@@ -80,20 +131,24 @@ def lambda_handler(event, context):
                         cur.execute(
                             """
                             UPDATE videos SET
-                                hook                     = %(hook)s,
-                                pain_point               = %(pain_point)s,
-                                solution                 = %(solution)s,
-                                cta                      = %(cta)s,
-                                tone                     = %(tone)s,
-                                viral_triggers           = %(viral_triggers)s,
-                                product_positioning      = %(product_positioning)s,
-                                target_audience          = %(estimated_target_audience)s,
-                                hook_score               = %(hook_score)s,
-                                overall_score            = %(overall_score)s,
-                                analysis_completed_at    = NOW()
+                                hook                  = %(hook)s,
+                                pain_point            = %(pain_point)s,
+                                solution              = %(solution)s,
+                                cta                   = %(cta)s,
+                                tone                  = %(tone)s,
+                                viral_triggers        = %(viral_triggers)s,
+                                product_positioning   = %(product_positioning)s,
+                                target_audience       = %(estimated_target_audience)s,
+                                hook_score            = %(hook_score)s,
+                                overall_score         = %(overall_score)s,
+                                analysis_completed_at = NOW()
                             WHERE id = %(video_id)s
                             """,
-                            {**analysis, "video_id": video_id, "viral_triggers": json.dumps(analysis.get("viral_triggers", []))},
+                            {
+                                **analysis,
+                                "video_id":       video_id,
+                                "viral_triggers": json.dumps(analysis.get("viral_triggers", [])),
+                            },
                         )
             finally:
                 conn.close()
@@ -101,7 +156,7 @@ def lambda_handler(event, context):
             logger.info(f"Analysis saved for {tiktok_video_id}")
 
         except json.JSONDecodeError as e:
-            logger.error(f"Claude returned invalid JSON for {tiktok_video_id}: {e}")
+            logger.error(f"LLM returned invalid JSON for {tiktok_video_id}: {e}")
             raise
         except Exception as e:
             logger.error(f"Analysis failed for {tiktok_video_id}: {e}")

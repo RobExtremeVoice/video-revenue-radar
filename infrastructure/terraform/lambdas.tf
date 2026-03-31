@@ -61,6 +61,7 @@ locals {
     APIFY_TOKEN          = var.apify_token
     OPENAI_API_KEY       = var.openai_api_key
     ANTHROPIC_API_KEY    = var.anthropic_api_key
+    ALIBABA_API_KEY      = var.alibaba_api_key
   }
   vpc_config = {
     subnet_ids         = [aws_subnet.private_a.id, aws_subnet.private_b.id]

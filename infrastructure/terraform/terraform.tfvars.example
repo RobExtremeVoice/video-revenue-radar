@@ -4,3 +4,4 @@ db_password       = "CHANGE_ME_strong_password_here"
 apify_token       = "apify_api_..."
 openai_api_key    = "sk-..."
 anthropic_api_key = "sk-ant-..."
+alibaba_api_key   = ""           # optional — Qwen via DashScope

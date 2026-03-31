@@ -37,11 +37,10 @@ export default function Settings() {
   };
 
   const apiKeys = [
-    { id: "fastmoss", label: "Fastmoss API Key" },
-    { id: "kalodata", label: "Kalodata API Key", subtitle: "Alternative data source (optional)" },
+    { id: "apify", label: "Apify Token", subtitle: "TikTok Shop scraper (apify.com)" },
     { id: "openai", label: "OpenAI API Key", subtitle: "Whisper transcription" },
     { id: "anthropic", label: "Anthropic API Key", subtitle: "Claude analysis" },
-    { id: "alibaba", label: "Alibaba Cloud API Key", subtitle: "Qwen3.5 or other Alibaba Cloud LLM" },
+    { id: "alibaba", label: "Alibaba Cloud API Key", subtitle: "Qwen analysis (alternative to Claude)" },
   ];
 
   return (
