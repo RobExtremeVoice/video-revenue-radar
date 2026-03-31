@@ -1,6 +1,6 @@
 aws_region        = "us-east-1"
 environment       = "prod"
 db_password       = "CHANGE_ME_strong_password_here"
-fastmoss_api_key  = "your_fastmoss_api_key"
+apify_token       = "apify_api_..."
 openai_api_key    = "sk-..."
 anthropic_api_key = "sk-ant-..."

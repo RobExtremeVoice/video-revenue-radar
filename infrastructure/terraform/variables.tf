@@ -16,8 +16,8 @@ variable "db_password" {
   sensitive   = true
 }
 
-variable "fastmoss_api_key" {
-  description = "Fastmoss API key"
+variable "apify_token" {
+  description = "Apify API token (apify.com)"
   type        = string
   sensitive   = true
 }

@@ -58,7 +58,7 @@ locals {
     S3_BUCKET            = aws_s3_bucket.assets.id
     TRANSCRIBE_QUEUE_URL = aws_sqs_queue.transcribe.url
     ANALYZE_QUEUE_URL    = aws_sqs_queue.analyze.url
-    FASTMOSS_API_KEY     = var.fastmoss_api_key
+    APIFY_TOKEN          = var.apify_token
     OPENAI_API_KEY       = var.openai_api_key
     ANTHROPIC_API_KEY    = var.anthropic_api_key
   }
